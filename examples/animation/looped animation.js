@@ -20,7 +20,7 @@ function create() {
     //  15 is the frame rate (15fps)
     //  true means it will loop when it finishes
     bot.animations.play('run', 15, true);
-
+	
 }
 
 function update() {

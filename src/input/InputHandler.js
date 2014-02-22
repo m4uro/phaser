@@ -518,9 +518,14 @@ Phaser.InputHandler.prototype = {
         }
 
         this.sprite.getLocalUnmodifiedPosition(this._tempPoint, pointer.x, pointer.y);
-
-        if (this._tempPoint.x >= 0 && this._tempPoint.x <= this.sprite.currentFrame.width && this._tempPoint.y >= 0 && this._tempPoint.y <= this.sprite.currentFrame.height)
-        {
+		
+		//MAURO: Modifique esto para mejorar el chequeo de bounds de los clicks
+		var myCondition, originalCondition;
+        originalCondition = (this._tempPoint.x >= 0 && this._tempPoint.x <= this.sprite.currentFrame.width && this._tempPoint.y >= 0 && this._tempPoint.y <= this.sprite.currentFrame.height) //Original
+        myCondition = (this._tempPoint.x >= this.sprite.currentFrame.spriteSourceSizeX && this._tempPoint.x <= this.sprite.currentFrame.spriteSourceSizeW + this.sprite.currentFrame.spriteSourceSizeX && this._tempPoint.y >= this.sprite.currentFrame.spriteSourceSizeY && this._tempPoint.y <= this.sprite.currentFrame.spriteSourceSizeH + this.sprite.currentFrame.spriteSourceSizeY);
+        
+		if ((this.sprite.currentFrame.spriteSourceSizeW > 0) ? myCondition : originalCondition)
+		{
             if (this.pixelPerfect)
             {
                 return this.checkPixel(this._tempPoint.x, this._tempPoint.y);
